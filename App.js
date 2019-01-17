@@ -20,8 +20,14 @@ type Props = {};
 export default class App extends Component<Props> {
   componentDidMount() {
     NetInfo.isConnected.addEventListener("connectionChange", isConnected => {
-      console.log("isConnected?", isConnected);
+      console.log("addEventListener isConnected", isConnected);
     });
+
+    setInterval(() => {
+      NetInfo.isConnected.fetch().then(isConnected => {
+        console.log("setInterval isConnected", isConnected);
+      });
+    }, 5000);
   }
 
   render() {
