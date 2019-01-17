@@ -18,24 +18,30 @@ const instructions = Platform.select({
 
 type Props = {};
 export default class App extends Component<Props> {
+  constructor(props) {
+    super(props);
+    this.state = { isConnected: "false" };
+  }
+
   componentDidMount() {
     NetInfo.isConnected.addEventListener("connectionChange", isConnected => {
       console.log("addEventListener isConnected", isConnected);
+      this.setState(() => ({ isConnected: isConnected ? "true" : "false" }));
     });
 
     setInterval(() => {
       NetInfo.isConnected.fetch().then(isConnected => {
         console.log("setInterval isConnected", isConnected);
       });
-    }, 5000);
+    }, 1000);
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>Welcome to React Native!</Text>
-        <Text style={styles.instructions}>To get started, edit App.js</Text>
-        <Text style={styles.instructions}>{instructions}</Text>
+        <Text style={styles.welcome}>
+          isConnected: {this.state.isConnected}
+        </Text>
       </View>
     );
   }
