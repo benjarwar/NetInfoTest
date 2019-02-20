@@ -28,12 +28,6 @@ export default class App extends Component<Props> {
       console.log("addEventListener isConnected", isConnected);
       this.setState(() => ({ isConnected: isConnected ? "true" : "false" }));
     });
-
-    setInterval(() => {
-      NetInfo.isConnected.fetch().then(isConnected => {
-        console.log("setInterval isConnected", isConnected);
-      });
-    }, 1000);
   }
 
   render() {
